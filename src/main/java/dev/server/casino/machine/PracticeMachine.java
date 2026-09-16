@@ -86,18 +86,19 @@ public abstract class PracticeMachine<R extends PracticeRound> {
         }
         var b = definition.settingsBounds();
         double s = scale();
-        plugin.machineSettings.register(
-                this,
-                owner,
-                origin,
-                new BoundingBox(
-                        b.get(0) * s,
-                        b.get(1) * s,
-                        b.get(2) * s,
-                        b.get(3) * s,
-                        b.get(4) * s,
-                        b.get(5) * s),
-                this::settings);
+        plugin.machineSettings()
+                .register(
+                        this,
+                        owner,
+                        origin,
+                        new BoundingBox(
+                                b.get(0) * s,
+                                b.get(1) * s,
+                                b.get(2) * s,
+                                b.get(3) * s,
+                                b.get(4) * s,
+                                b.get(5) * s),
+                        this::settings);
         refresh();
     }
 
@@ -434,7 +435,7 @@ public abstract class PracticeMachine<R extends PracticeRound> {
 
     public final void settings(Player player) {
         confirmInput();
-        plugin.casino.machineSettings(
+        plugin.openMachineSettings(
                 player,
                 game(),
                 () -> round instanceof DemoRound demo ? demo.configuredStake() : round.stake(),
@@ -464,7 +465,7 @@ public abstract class PracticeMachine<R extends PracticeRound> {
     }
 
     public final void clear() {
-        plugin.machineSettings.unregister(this);
+        plugin.machineSettings().unregister(this);
         for (Entity entity : parts) entity.remove();
         parts.clear();
         targets.clear();

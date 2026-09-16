@@ -11,8 +11,8 @@ import java.util.UUID;
 class EconomyAvailabilityTest {
     @TempDir Path dir;
 
-    private MinesService.Wallet unavailable() {
-        return new MinesService.Wallet() {
+    private dev.server.casino.economy.Wallet unavailable() {
+        return new dev.server.casino.economy.Wallet() {
             public boolean available() {
                 return false;
             }
@@ -62,7 +62,7 @@ class EconomyAvailabilityTest {
         var original =
                 new MinesService(
                         new RoundStore(dir),
-                        new MinesService.Wallet() {
+                        new dev.server.casino.economy.Wallet() {
                             public boolean take(UUID id, long cents) {
                                 throw new IllegalStateException("Unknown debit");
                             }

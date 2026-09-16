@@ -16,11 +16,7 @@ final class CasinoGraphics {
         return last < 0 ? value : value.substring(0, last) + value.substring(last + 1);
     }
 
-    static String button(CasinoRound.Game game) {
-        return "";
-    }
-
-    static List<String> hero(CasinoRound.Game game) {
+    private static List<String> hero(CasinoRound.Game game) {
         List<String> out = new ArrayList<>();
         for (int y = 0; y < 6; y++) out.add(row(glyph(0xE300 + game.ordinal() * 6 + y)));
         return out;
@@ -39,7 +35,7 @@ final class CasinoGraphics {
     }
 
     static List<String> number(int cents) {
-        String text = CasinoUi.money(cents) + "x";
+        String text = Amounts.money(cents) + "x";
         List<String> out = new ArrayList<>();
         for (int y = 0; y < 3; y++) {
             StringBuilder line = new StringBuilder();

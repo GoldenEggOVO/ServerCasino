@@ -13,7 +13,7 @@ class CasinoServiceTest {
     @TempDir Path dir;
     final UUID player = UUID.randomUUID();
 
-    static class Wallet implements MinesService.Wallet {
+    static class Wallet implements dev.server.casino.economy.Wallet {
         long balance = 100000;
         int debits, credits;
         boolean uncertain, uncertainCredit, refuseCredit;

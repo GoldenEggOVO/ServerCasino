@@ -20,8 +20,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.*;
-import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -59,7 +59,7 @@ public final class MachineManager implements Listener {
 
     public void command(Player player, String[] args) {
         if (!plugin.machineAllowed(player)) {
-            player.sendMessage("§c你没有操作测试机的权限。");
+            player.sendMessage("§c你没有操作机器的权限。");
             return;
         }
         try {
@@ -87,18 +87,25 @@ public final class MachineManager implements Listener {
             if (args.length >= 1 && args[0].equalsIgnoreCase("remove")) {
                 if (args.length > 2) throw new IllegalArgumentException("用法：/casino remove [game]");
                 var candidate = new LinkedHashMap<>(placements);
-                candidate.keySet().removeIf(key -> key.owner.equals(player.getUniqueId())
-                        && (args.length == 1 || key.game.equalsIgnoreCase(args[1])));
+                candidate
+                        .keySet()
+                        .removeIf(
+                                key ->
+                                        key.owner.equals(player.getUniqueId())
+                                                && (args.length == 1
+                                                        || key.game.equalsIgnoreCase(args[1])));
                 save(candidate);
                 for (var machine : List.copyOf(machines.values())) {
-                    if (!placements.containsKey(new Key(machine.owner(), machine.game()))) detach(machine);
+                    if (!placements.containsKey(new Key(machine.owner(), machine.game())))
+                        detach(machine);
                 }
-                player.sendMessage("§e已拆除匹配的测试机。");
+                player.sendMessage("§e已拆除匹配的机器。");
                 return;
             }
             if (args.length < 2 || args.length > 3 || !args[0].equalsIgnoreCase("create")) {
                 player.sendMessage(
-                        "/casino create <game> [skin-id] | bet <game> <1-100> | remove [game] | reload-models");
+                        "/casino create <game> [skin-id] | bet <game> <1-100> | remove [game] |"
+                            + " reload-models");
                 return;
             }
             String game = args[1].toLowerCase(Locale.ROOT);
@@ -125,8 +132,17 @@ public final class MachineManager implements Listener {
             try {
                 machine.build();
                 var candidate = new LinkedHashMap<>(placements);
-                candidate.put(key, new PlacementStore.Placement(player.getUniqueId(), origin.getWorld().getUID(),
-                        origin.getX(), origin.getY(), origin.getZ(), origin.getYaw(), definition, 1000));
+                candidate.put(
+                        key,
+                        new PlacementStore.Placement(
+                                player.getUniqueId(),
+                                origin.getWorld().getUID(),
+                                origin.getX(),
+                                origin.getY(),
+                                origin.getZ(),
+                                origin.getYaw(),
+                                definition,
+                                1000));
                 store.save(candidate.values());
                 placements.putAll(candidate);
                 machines.put(key, machine);
@@ -197,10 +213,14 @@ public final class MachineManager implements Listener {
     private void scheduleRestore() {
         if (closed || restoreScheduled) return;
         restoreScheduled = true;
-        plugin.getServer().getScheduler().runTask(plugin, () -> {
-            restoreScheduled = false;
-            if (!closed) restoreLoaded();
-        });
+        plugin.getServer()
+                .getScheduler()
+                .runTask(
+                        plugin,
+                        () -> {
+                            restoreScheduled = false;
+                            if (!closed) restoreLoaded();
+                        });
     }
 
     private void restoreLoaded() {
@@ -208,18 +228,24 @@ public final class MachineManager implements Listener {
             if (machines.containsKey(entry.getKey())) continue;
             var saved = entry.getValue();
             World world = plugin.getServer().getWorld(saved.world());
-            if (world == null || !world.isChunkLoaded(((int) Math.floor(saved.x())) >> 4,
-                    ((int) Math.floor(saved.z())) >> 4)) continue;
+            if (world == null
+                    || !world.isChunkLoaded(
+                            ((int) Math.floor(saved.x())) >> 4, ((int) Math.floor(saved.z())) >> 4))
+                continue;
             var origin = new Location(world, saved.x(), saved.y(), saved.z(), saved.yaw(), 0);
-            var machine = create(saved.definition().game(), saved.owner(), origin, saved.definition());
+            var machine =
+                    create(saved.definition().game(), saved.owner(), origin, saved.definition());
             try {
                 machine.restoreStake(saved.stake());
                 machine.build();
                 machines.put(entry.getKey(), machine);
             } catch (RuntimeException ex) {
                 machine.clear();
-                plugin.getLogger().log(java.util.logging.Level.WARNING,
-                        "Machine restore failed; placement retained: " + entry.getKey(), ex);
+                plugin.getLogger()
+                        .log(
+                                java.util.logging.Level.WARNING,
+                                "Machine restore failed; placement retained: " + entry.getKey(),
+                                ex);
             }
         }
     }
@@ -324,7 +350,9 @@ public final class MachineManager implements Listener {
                 plugin.getLogger()
                         .log(
                                 java.util.logging.Level.WARNING,
-                                "Machine display stopped after animation failure; placement retained: " + machine.game(),
+                                "Machine display stopped after animation failure; placement"
+                                    + " retained: "
+                                        + machine.game(),
                                 ex);
             }
         }

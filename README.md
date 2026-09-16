@@ -1,18 +1,18 @@
 # ServerCasino
 
-面向 Paper/Purpur 26.2、Java 25 的 Casino 插件。源码许可为 GPL-3.0，见 [LICENSE](LICENSE)。主命令 `/casino`；默认实体机器是免费练习，不扣款、不发放金币。菜单金币局需要可用的经济提供者与玩家确认。
+面向 Paper/Purpur 26.2、Java 25 的 Casino 插件。源码许可为 GPL-3.0，见 [LICENSE](LICENSE)。主命令 `/casino`；默认实体机器是免费练习，不扣款、不发放金币。不提供菜单新开金币局；已有金币记录仍可继续处理和核对。
 
 ## 构建与安装
 
 在本项目目录运行 `mvn clean package`，使用 Java 25 与 Maven 3.9+。首次构建需要联网下载 `pom.xml` 中公开依赖；离线构建只适用于缓存已完整的环境。安装 `target/server-casino-*.jar`，不要安装 `original-*.jar`。
 
-停止服务器并备份 `plugins/ServerCasino` 后替换插件，同一插件仅保留一个 JAR。按需安装 Vault 与兼容经济插件；没有经济提供者时只提供练习。菜单采用 Paper 原生 Dialog；新安装默认 `money-enabled: false`。AuthMe 接入用于已有认证保护。默认模型可通过 CraftEngine 合并，或者由管理员自己的资源包系统分发。
+停止服务器并备份 `plugins/ServerCasino` 后替换插件，同一插件仅保留一个 JAR。按需安装 Vault 与兼容经济插件；没有经济提供者时只提供练习。菜单采用 Paper 原生 Dialog；菜单可通过 `menu-enabled` 开关控制。AuthMe 接入用于已有认证保护。默认模型可通过 CraftEngine 合并，或者由管理员自己的资源包系统分发。
 
 运行 `python tools/package-resources.py` 得到 `target/casino-craftengine.zip`。将其中 `resources/casino` 安装至 `plugins/CraftEngine/resources/casino`，重新生成并分发服务器合并资源包。不要覆盖其他内容包。ZIP 是 CraftEngine 内容包，不能直接作为客户端资源包 URL；管理员须使用合并后的有效资源包。
 
 ## 命令与配置
 
-- `/casino`：游戏菜单与创建测试机入口。Mines 仅通过实体机器游玩。
+- `/casino`：机器管理菜单入口。Mines 仅通过实体机器游玩。
 - `/casino create <game> [skin-id]`：创建免费机器。
 - `/casino bet <game> <amount>`：修改自己的对应机器的练习下注，金额为 1～100 的整数；需要靠近机器，并等待当前对局或动画结束。
 - `/casino remove [game]`：删除自己对应类型的机器；不填游戏类型则删除自己的全部机器。
@@ -20,7 +20,7 @@
 - `/casino-demo` 同样支持以上机器管理子命令。
 - `casino.use`、`casino.machine`：使用菜单与管理机器的权限。
 
-`config.yml` 中 `menu-enabled: true` 默认开启原生菜单。设置为 `false` 并重启服务器后，`/casino` 和 Shift＋右键只显示指令帮助，不打开 Dialog。机器创建、下注设置、删除、模型重载与实体按钮仍可使用；菜单游戏界面随菜单关闭。该开关不改变 `money-enabled` 或经济核对功能。
+`config.yml` 中 `menu-enabled: true` 默认开启原生菜单。设置为 `false` 并重启服务器后，`/casino` 和 Shift＋右键只显示指令帮助，不打开 Dialog。机器创建、下注设置、删除、模型重载与实体按钮仍可使用；已有对局的处理界面随菜单关闭。结算服务和控制台经济核对功能独立运行，不受菜单开关影响。
 
 例如 `/casino create mines`、`/casino bet mines 25`、`/casino remove mines`。实体机器始终为免费练习。
 

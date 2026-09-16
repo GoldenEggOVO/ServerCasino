@@ -1,11 +1,11 @@
 name: ServerCasino
-version: 0.4.4-preview
+version: 0.5.0-preview
 main: dev.server.casino.CasinoPlugin
 api-version: '26.2'
 softdepend: [Vault, AuthMe, CraftEngine, ServerGames]
 commands:
   casino-demo:
-    description: 创建或清除免费实体游乐机
+    description: 创建或清除实体游乐机
     usage: /casino-demo create <game> [skin-id] 或 remove [game] 或 reload-models
   casino:
     description: 金币游乐场

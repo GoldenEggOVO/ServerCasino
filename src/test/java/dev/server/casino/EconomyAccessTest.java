@@ -61,8 +61,8 @@ class EconomyAccessTest {
         Provider provider = new Provider();
         provider.result = EconomyProvider.Result.UNKNOWN;
         EconomyAccess access = new EconomyAccess(() -> provider);
-        MinesService.Wallet wallet =
-                new MinesService.Wallet() {
+        dev.server.casino.economy.Wallet wallet =
+                new dev.server.casino.economy.Wallet() {
                     public boolean available() {
                         return access.available();
                     }

@@ -6,7 +6,7 @@
 2. 安装当前 CraftEngine 内容包 `resources/casino`，重新生成并分发合并资源包。仅注册 `casino:*`；旧内容包应备份后移出扫描目录。
 3. 使用 `casino.use` 与 `casino.machine` 配置权限，旧权限不再生效。菜单入口为 `/casino`，Mines 使用实体机器；机器管理使用 `/casino create`、`/casino bet`、`/casino remove` 和 `/casino reload-models`。
 4. 不再生成或读取 Mines 专用的 `menu.yml`；游戏通过实体 Mines 机器进行。
-5. 原生菜单可选：设置 `menu-enabled: false` 并重启即可关闭。关闭后可用指令管理机器，实体按钮保持可用。
+5. 原生菜单可选：设置 `menu-enabled: false` 并重启即可关闭。关闭后不创建菜单对象，可用指令管理机器，实体按钮保持可用；存档加载和结算任务独立运行。
 6. 在隔离环境验证资源加载、菜单和机器交互，再用于正式服。
 
 当前 ServerCasino 存档与资金待核对保护保留。不要删除 `rounds` 数据绕过待核对状态；先按 README 核对实际经济操作。旧版数据不保证兼容，应保留原环境备份并在原版本完成对局核对。

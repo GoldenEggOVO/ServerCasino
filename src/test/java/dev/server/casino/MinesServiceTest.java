@@ -11,7 +11,7 @@ import java.util.*;
 class MinesServiceTest {
     @TempDir Path dir;
 
-    static class Wallet implements MinesService.Wallet {
+    static class Wallet implements dev.server.casino.economy.Wallet {
         int takes, gives;
         long balance = 100000;
         boolean throwGive, throwTake, denyTake;
@@ -119,8 +119,8 @@ class MinesServiceTest {
         assertThrows(
                 IllegalStateException.class,
                 () -> s.reveal(UUID.randomUUID(), r.id, r.revision, 4));
-        assertThrows(IllegalArgumentException.class, () -> CasinoUi.parse("NaN", 100));
-        assertThrows(IllegalArgumentException.class, () -> CasinoUi.parse("-1", 100));
-        assertThrows(IllegalArgumentException.class, () -> CasinoUi.parse("101", 100));
+        assertThrows(IllegalArgumentException.class, () -> Amounts.parse("NaN", 100));
+        assertThrows(IllegalArgumentException.class, () -> Amounts.parse("-1", 100));
+        assertThrows(IllegalArgumentException.class, () -> Amounts.parse("101", 100));
     }
 }

@@ -15,18 +15,22 @@ import java.util.random.RandomGenerator;
 /** Main-thread service. Pending external transactions always require explicit reconciliation. */
 final class CasinoService {
     private final Path dir;
-    private final MinesService.Wallet wallet;
+    private final dev.server.casino.economy.Wallet wallet;
     private final LongSupplier clock;
     private final RandomGenerator random;
     private final Gson gson = new Gson();
     private final Map<UUID, CasinoRound> rounds = new HashMap<>();
     private boolean storageFailed;
 
-    CasinoService(Path dir, MinesService.Wallet wallet) throws IOException {
+    CasinoService(Path dir, dev.server.casino.economy.Wallet wallet) throws IOException {
         this(dir, wallet, System::currentTimeMillis, new SecureRandom());
     }
 
-    CasinoService(Path dir, MinesService.Wallet wallet, LongSupplier clock, RandomGenerator random)
+    CasinoService(
+            Path dir,
+            dev.server.casino.economy.Wallet wallet,
+            LongSupplier clock,
+            RandomGenerator random)
             throws IOException {
         this.dir = dir;
         this.wallet = wallet;

@@ -22,11 +22,11 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 public final class CasinoPlugin extends JavaPlugin implements Listener {
-    MinesService games;
-    public CasinoUi casino;
-    EconomyAccess economy;
-    public MachineManager machines;
-    public MachineSettingsTargets machineSettings;
+    private CasinoRuntime runtime;
+    private CasinoMenus menus;
+    private EconomyAccess economy;
+    private MachineManager machines;
+    private MachineSettingsTargets machineSettings;
 
     @Override
     public void onEnable() {
@@ -41,14 +41,15 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
             economy =
                     new EconomyAccess(
                             () -> getServer().getServicesManager().load(EconomyProvider.class));
-            games =
-                    new MinesService(
-                            new RoundStore(getDataFolder().toPath().resolve("rounds")), wallet());
-            casino = new CasinoUi(this);
+            runtime = new CasinoRuntime(this, economy);
+            if (menusEnabled()) {
+                menus = new CasinoMenus(this, runtime);
+                runtime.onRoundUpdated(menus::roundUpdated);
+            }
             machineSettings = new MachineSettingsTargets(this);
             machines = new MachineManager(this);
             getServer().getPluginManager().registerEvents(this, this);
-            getLogger().info("ServerCasino 已启用：实体测试机免费试玩，历史金币对局记录保留。");
+            getLogger().info("ServerCasino 已启用：实体机器免费练习，历史金币对局记录保留。");
         } catch (Exception | LinkageError ex) {
             getLogger().log(Level.SEVERE, "Casino 启动失败", ex);
             getServer().getPluginManager().disablePlugin(this);
@@ -59,16 +60,17 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
     public void onDisable() {
         if (machines != null) machines.close();
         if (machineSettings != null) machineSettings.close();
-        if (casino != null) casino.close();
+        if (menus != null) menus.close();
+        if (runtime != null) runtime.close();
     }
 
-    void testMachine(Player player, String[] args) {
+    void machineCommand(Player player, String[] args) {
         machines.command(player, args);
     }
 
     @EventHandler
     public void quit(PlayerQuitEvent event) {
-        if (casino != null) casino.forget(event.getPlayer().getUniqueId());
+        if (menus != null) menus.forget(event.getPlayer().getUniqueId());
     }
 
     public boolean allowed(Player player) {
@@ -86,37 +88,38 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
         return getConfig().getBoolean("menu-enabled", true);
     }
 
-    boolean moneyAvailable() {
-        return getConfig().getBoolean("money-enabled", false) && economy.available();
+    public MachineSettingsTargets machineSettings() {
+        return machineSettings;
     }
 
-    String balanceLabel(Player player) {
-        var balance = economy.balance(player.getUniqueId());
-        return balance.isPresent() ? CasinoUi.money(balance.getAsLong()) : "经济服务不可用";
+    public void openMachineSettings(
+            Player player,
+            String game,
+            java.util.function.LongSupplier stake,
+            java.util.function.LongConsumer setStake,
+            java.util.function.BooleanSupplier canEdit,
+            java.util.function.BooleanSupplier exists,
+            Runnable remove) {
+        if (menus == null || !menusEnabled()) {
+            menuHelp(player);
+            return;
+        }
+        menus.machineSettings(player, game, stake, setStake, canEdit, exists, remove);
     }
 
-    MinesService.Wallet wallet() {
-        return new MinesService.Wallet() {
-            public boolean available() {
-                return economy.available();
-            }
-
-            public boolean take(UUID player, long cents) {
-                return economy.take(player, cents);
-            }
-
-            public boolean give(UUID player, long cents) {
-                return economy.give(player, cents);
-            }
-        };
+    private void menuHelp(Player player) {
+        player.sendMessage(
+                "§e菜单已关闭。使用 /casino create <game>、/casino bet <game> <1-100>、/casino remove"
+                    + " <game>。");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("casino-demo")
-                || args.length > 0 && Set.of("create", "remove", "bet", "reload-models")
-                        .contains(args[0].toLowerCase(java.util.Locale.ROOT))) {
-            if (sender instanceof Player player) testMachine(player, args);
+                || args.length > 0
+                        && Set.of("create", "remove", "bet", "reload-models")
+                                .contains(args[0].toLowerCase(java.util.Locale.ROOT))) {
+            if (sender instanceof Player player) machineCommand(player, args);
             else sender.sendMessage("机器管理指令需要玩家在游戏内执行。");
             return true;
         }
@@ -130,19 +133,14 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
             try {
                 if (args.length != 4 || !Set.of("applied", "not-applied").contains(args[3])) {
                     throw new IllegalArgumentException(
-                            (mines ? "casino mines" : "casino") + " resolve <玩家UUID> <对局UUID> <applied|not-applied>");
+                            (mines ? "casino mines" : "casino")
+                                    + " resolve <玩家UUID> <对局UUID> <applied|not-applied>");
                 }
-                if (!mines) {
-                    casino.resolve(
-                            UUID.fromString(args[1]),
-                            UUID.fromString(args[2]),
-                            args[3].equals("applied"));
-                } else {
-                    games.resolve(
-                            UUID.fromString(args[1]),
-                            UUID.fromString(args[2]),
-                            args[3].equals("applied"));
-                }
+                runtime.resolve(
+                        mines,
+                        UUID.fromString(args[1]),
+                        UUID.fromString(args[2]),
+                        args[3].equals("applied"));
                 getLogger()
                         .warning("管理员核对 " + command.getName() + " 结算: " + String.join(" ", args));
                 sender.sendMessage("状态已记录；该命令本身不转账。");
@@ -157,7 +155,8 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
             } else if (mines) {
                 player.sendMessage("§eMines 请使用实体机器游玩。");
             } else {
-                casino.open(player);
+                if (menus != null && menusEnabled()) menus.open(player);
+                else menuHelp(player);
             }
         } else {
             sender.sendMessage("玩家使用 /casino；核对命令见 README。");

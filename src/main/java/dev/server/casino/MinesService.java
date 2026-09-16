@@ -1,20 +1,12 @@
 package dev.server.casino;
 
+import dev.server.casino.economy.Wallet;
+
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.*;
 
 final class MinesService {
-    interface Wallet {
-        default boolean available() {
-            return true;
-        }
-
-        boolean take(UUID p, long cents);
-
-        boolean give(UUID p, long cents);
-    }
-
     private final RoundStore store;
     private final Wallet wallet;
     private final SecureRandom random = new SecureRandom();

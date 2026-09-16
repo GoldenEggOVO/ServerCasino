@@ -2,7 +2,9 @@
 
 插件入口为 `dev.server.casino.CasinoPlugin`。`game/<game>/` 内的 Round 只负责规则和结果，Machine 控制器只负责对应游戏的实体与动画。`machine/` 统一管理创建、射线点击、按钮按压、菜单入口和清理；`model/` 负责不可变外观定义、校验和重载。
 
-旧金币菜单的持久化服务仍保留原 JSON 字段和交易恢复语义。不要用练习机器 Round 替换持久化交易状态，也不要绕过金币确认回调调用经济提供者。
+`CasinoRuntime` 拥有金币存档服务与结算定时任务，菜单关闭也正常运行。`CasinoMenus` 仅负责机器管理界面和会话；`RoundRecoveryMenu` 仅处理已有存档对局，不能开始新的菜单对局。关闭菜单时不创建菜单对象。`economy.Wallet` 是内部结算访问契约；公共经济扩展仍使用 `api.EconomyProvider`。
+
+持久化服务保留原 JSON 字段和交易恢复语义。不要用练习机器 Round 替换持久化交易状态，也不要绕过金币确认回调调用经济提供者。
 
 ## 经济接口
 
