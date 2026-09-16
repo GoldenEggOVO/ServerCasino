@@ -313,7 +313,7 @@ public final class CasinoUi {
             p.closeDialog();
             return;
         }
-        var page = new Page(p, "创建测试机", "点击游戏，在你前方创建免费测试机。Shift＋右键机器可设置下注金额或删除；离线后自动清理。");
+        var page = new Page(p, "创建测试机", "点击游戏，在你前方创建免费测试机。Shift＋右键机器可设置下注金额或删除；机器永久保存，每种游戏可放置一台。");
         for (var entry : MachineCatalog.ENTRIES)
             page.button(
                     entry.id(),

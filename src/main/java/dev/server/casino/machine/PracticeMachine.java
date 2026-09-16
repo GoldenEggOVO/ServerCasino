@@ -126,7 +126,7 @@ public abstract class PracticeMachine<R extends PracticeRound> {
     protected void confirmInput() {}
 
     public final boolean expired() {
-        return age >= 24000 || parts.stream().anyMatch(e -> !e.isValid());
+        return parts.stream().anyMatch(e -> !e.isValid());
     }
 
     public final boolean touchesChunk(Chunk chunk) {
@@ -422,9 +422,14 @@ public abstract class PracticeMachine<R extends PracticeRound> {
             throw new IllegalArgumentException("下注金额必须是 1～100 的整数。");
         }
         if (!canEditStake()) throw new IllegalArgumentException("请等当前对局或动画结束后修改金额。");
+        manager.saveStake(this, amount);
+        restoreStake(amount);
+        refresh();
+    }
+
+    final void restoreStake(long amount) {
         if (round instanceof DemoRound demo) demo.setConfiguredStake(amount);
         else round.setStake(amount);
-        refresh();
     }
 
     public final void settings(Player player) {

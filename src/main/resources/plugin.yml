@@ -1,5 +1,5 @@
 name: ServerCasino
-version: 0.4.3-preview
+version: 0.4.4-preview
 main: dev.server.casino.CasinoPlugin
 api-version: '26.2'
 softdepend: [Vault, AuthMe, CraftEngine, ServerGames]

@@ -21,6 +21,9 @@ import org.bukkit.event.*;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.*;
 import org.bukkit.event.world.ChunkUnloadEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -31,12 +34,21 @@ import java.util.*;
 public final class MachineManager implements Listener {
     private final CasinoPlugin plugin;
     private final Map<Key, PracticeMachine<?>> machines = new LinkedHashMap<>();
+    private final Map<Key, PlacementStore.Placement> placements = new LinkedHashMap<>();
+    private final PlacementStore store;
+    private boolean restoreScheduled;
+    private boolean closed;
     private final MachineRegistry registry = new MachineRegistry();
     private final BukkitTask task;
 
     public MachineManager(CasinoPlugin plugin) throws IOException {
         this.plugin = plugin;
         registry.reload(plugin.getDataFolder().toPath().resolve("machines"));
+        store = new PlacementStore(plugin.getDataFolder().toPath().resolve("placements.json"));
+        for (var placement : store.load()) {
+            placements.put(new Key(placement.owner(), placement.definition().game()), placement);
+        }
+        scheduleRestore();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         task = plugin.getServer().getScheduler().runTaskTimer(plugin, this::tick, 1, 1);
     }
@@ -61,7 +73,7 @@ public final class MachineManager implements Listener {
                     throw new IllegalArgumentException("用法：/casino bet <game> <1-100>");
                 }
                 String game = args[1].toLowerCase(Locale.ROOT);
-                var machine = machines.get(new Key(player.getUniqueId(), group(game)));
+                var machine = machines.get(new Key(player.getUniqueId(), game));
                 if (machine == null || !machine.game().equals(game)) {
                     throw new IllegalArgumentException("你没有这种类型的机器。");
                 }
@@ -74,10 +86,12 @@ public final class MachineManager implements Listener {
             }
             if (args.length >= 1 && args[0].equalsIgnoreCase("remove")) {
                 if (args.length > 2) throw new IllegalArgumentException("用法：/casino remove [game]");
+                var candidate = new LinkedHashMap<>(placements);
+                candidate.keySet().removeIf(key -> key.owner.equals(player.getUniqueId())
+                        && (args.length == 1 || key.game.equalsIgnoreCase(args[1])));
+                save(candidate);
                 for (var machine : List.copyOf(machines.values())) {
-                    if (machine.owner().equals(player.getUniqueId())
-                            && (args.length == 1 || machine.game().equalsIgnoreCase(args[1])))
-                        remove(machine);
+                    if (!placements.containsKey(new Key(machine.owner(), machine.game()))) detach(machine);
                 }
                 player.sendMessage("§e已拆除匹配的测试机。");
                 return;
@@ -89,13 +103,9 @@ public final class MachineManager implements Listener {
             }
             String game = args[1].toLowerCase(Locale.ROOT);
             var definition = registry.get(game, args.length == 3 ? args[2] : game);
-            var key = new Key(player.getUniqueId(), group(game));
-            if (machines.containsKey(key)) {
-                player.sendMessage("§e请先拆除这一组已有的测试机。");
-                return;
-            }
-            if (machines.keySet().stream().filter(k -> k.group.equals(key.group)).count() >= 8) {
-                player.sendMessage("§e测试机数量已达上限。");
+            var key = new Key(player.getUniqueId(), game);
+            if (placements.containsKey(key)) {
+                player.sendMessage("§e你已放置这种游戏的机器，请先删除再重新放置。");
                 return;
             }
             var origin = player.getLocation();
@@ -114,12 +124,17 @@ public final class MachineManager implements Listener {
             var machine = create(game, player.getUniqueId(), origin, definition);
             try {
                 machine.build();
+                var candidate = new LinkedHashMap<>(placements);
+                candidate.put(key, new PlacementStore.Placement(player.getUniqueId(), origin.getWorld().getUID(),
+                        origin.getX(), origin.getY(), origin.getZ(), origin.getYaw(), definition, 1000));
+                store.save(candidate.values());
+                placements.putAll(candidate);
                 machines.put(key, machine);
-            } catch (RuntimeException ex) {
+            } catch (IOException | RuntimeException ex) {
                 machine.clear();
                 throw ex;
             }
-            player.sendMessage("§b免费测试机已生成：右键操作，Shift＋右键设置；离线或20分钟后清理。");
+            player.sendMessage("§b机器已永久保存：右键操作，Shift＋右键设置；可同时放置不同游戏。");
         } catch (IOException | IllegalArgumentException ex) {
             player.sendMessage("§c机器配置未应用：" + ex.getMessage());
         }
@@ -144,21 +159,69 @@ public final class MachineManager implements Listener {
         };
     }
 
-    private static String group(String game) {
-        return switch (game) {
-            case "mines", "blackjack", "crash" -> "original";
-            case "plinko" -> "plinko";
-            default -> "showcase";
-        };
+    boolean contains(PracticeMachine<?> machine) {
+        return machines.get(new Key(machine.owner(), machine.game())) == machine;
     }
 
-    boolean contains(PracticeMachine<?> machine) {
-        return machines.get(new Key(machine.owner(), group(machine.game()))) == machine;
+    private void save(Map<Key, PlacementStore.Placement> candidate) {
+        try {
+            store.save(candidate.values());
+        } catch (IOException ex) {
+            throw new IllegalArgumentException("机器保存失败，原记录未修改。", ex);
+        }
+        placements.clear();
+        placements.putAll(candidate);
+    }
+
+    void saveStake(PracticeMachine<?> machine, long amount) {
+        if (!contains(machine)) throw new IllegalArgumentException("机器已失效。");
+        var key = new Key(machine.owner(), machine.game());
+        var candidate = new LinkedHashMap<>(placements);
+        candidate.put(key, candidate.get(key).withStake(amount));
+        save(candidate);
     }
 
     void remove(PracticeMachine<?> machine) {
-        if (machines.remove(new Key(machine.owner(), group(machine.game())), machine))
-            machine.clear();
+        if (!contains(machine)) return;
+        var candidate = new LinkedHashMap<>(placements);
+        candidate.remove(new Key(machine.owner(), machine.game()));
+        save(candidate);
+        detach(machine);
+    }
+
+    private void detach(PracticeMachine<?> machine) {
+        machines.remove(new Key(machine.owner(), machine.game()), machine);
+        machine.clear();
+    }
+
+    private void scheduleRestore() {
+        if (closed || restoreScheduled) return;
+        restoreScheduled = true;
+        plugin.getServer().getScheduler().runTask(plugin, () -> {
+            restoreScheduled = false;
+            if (!closed) restoreLoaded();
+        });
+    }
+
+    private void restoreLoaded() {
+        for (var entry : placements.entrySet()) {
+            if (machines.containsKey(entry.getKey())) continue;
+            var saved = entry.getValue();
+            World world = plugin.getServer().getWorld(saved.world());
+            if (world == null || !world.isChunkLoaded(((int) Math.floor(saved.x())) >> 4,
+                    ((int) Math.floor(saved.z())) >> 4)) continue;
+            var origin = new Location(world, saved.x(), saved.y(), saved.z(), saved.yaw(), 0);
+            var machine = create(saved.definition().game(), saved.owner(), origin, saved.definition());
+            try {
+                machine.restoreStake(saved.stake());
+                machine.build();
+                machines.put(entry.getKey(), machine);
+            } catch (RuntimeException ex) {
+                machine.clear();
+                plugin.getLogger().log(java.util.logging.Level.WARNING,
+                        "Machine restore failed; placement retained: " + entry.getKey(), ex);
+            }
+        }
     }
 
     boolean canUse(Player player, PracticeMachine<?> machine) {
@@ -226,43 +289,54 @@ public final class MachineManager implements Listener {
                 if (canUse(player, machine)) machine.confirmInput();
     }
 
-    @EventHandler
-    public void quit(PlayerQuitEvent event) {
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void unload(ChunkUnloadEvent event) {
         for (var machine : List.copyOf(machines.values()))
-            if (machine.owner().equals(event.getPlayer().getUniqueId())) remove(machine);
+            if (machine.touchesChunk(event.getChunk())) detach(machine);
     }
 
     @EventHandler
-    public void unload(ChunkUnloadEvent event) {
+    public void load(ChunkLoadEvent event) {
+        scheduleRestore();
+    }
+
+    @EventHandler
+    public void loadWorld(WorldLoadEvent event) {
+        scheduleRestore();
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void unloadWorld(WorldUnloadEvent event) {
         for (var machine : List.copyOf(machines.values()))
-            if (machine.touchesChunk(event.getChunk())) remove(machine);
+            if (machine.origin().getWorld().equals(event.getWorld())) detach(machine);
     }
 
     private void tick() {
         for (var machine : List.copyOf(machines.values())) {
             if (machine.expired()) {
-                remove(machine);
+                detach(machine);
                 continue;
             }
             try {
                 machine.tick();
             } catch (RuntimeException ex) {
-                remove(machine);
+                detach(machine);
                 plugin.getLogger()
                         .log(
                                 java.util.logging.Level.WARNING,
-                                "Machine removed after animation failure: " + machine.game(),
+                                "Machine display stopped after animation failure; placement retained: " + machine.game(),
                                 ex);
             }
         }
     }
 
     public void close() {
+        closed = true;
         task.cancel();
         for (var machine : machines.values()) machine.clear();
         machines.clear();
         HandlerList.unregisterAll(this);
     }
 
-    private record Key(UUID owner, String group) {}
+    private record Key(UUID owner, String game) {}
 }
