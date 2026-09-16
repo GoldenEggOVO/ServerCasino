@@ -12,7 +12,7 @@
 
 ## 命令与配置
 
-- `/casino`：游戏菜单；`/casino mines`：Mines 菜单。
+- `/casino`：游戏菜单与创建测试机入口。Mines 仅通过实体机器游玩。
 - `/casino-demo create <game> [skin-id]`：创建免费机器；`remove` 清除机器。
 - `/casino-demo reload-models`：校验并重载机器定义。
 - `casino.use`、`casino.machine`：使用菜单与管理机器的权限。
@@ -23,7 +23,7 @@
 
 金额使用整数 cents。练习不调用经济扣款或发奖。金币局的 `DEBIT_PENDING` / `CREDIT_PENDING` 表示经济操作需要核对；提供者不可用时不能伪造成功。备份并保护 `rounds` 数据，不删除记录以绕过待核对状态。
 
-管理员核对经济插件证据后，使用 `casino mines resolve <玩家UUID> <对局UUID> applied` 或 `not-applied` 标记实际结果。该命令自身不转账，不能猜测结果。其他菜单游戏使用 `casino resolve <玩家UUID> <对局UUID> applied` 或 `not-applied` 核对。
+Mines 菜单移除后，已有资金记录仍保留控制台核对功能。管理员核对经济插件证据后，使用 `casino mines resolve <玩家UUID> <对局UUID> applied` 或 `not-applied` 标记实际结果。该命令自身不转账，不能猜测结果。其他菜单游戏使用 `casino resolve <玩家UUID> <对局UUID> applied` 或 `not-applied` 核对。
 
 ## 验证
 

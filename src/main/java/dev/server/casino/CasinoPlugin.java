@@ -23,7 +23,6 @@ import java.util.logging.Level;
 
 public final class CasinoPlugin extends JavaPlugin implements Listener {
     MinesService games;
-    MinesUi ui;
     public CasinoUi casino;
     EconomyAccess economy;
     public MachineManager machines;
@@ -45,7 +44,6 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
             games =
                     new MinesService(
                             new RoundStore(getDataFolder().toPath().resolve("rounds")), wallet());
-            ui = new MinesUi(this);
             casino = new CasinoUi(this);
             machineSettings = new MachineSettingsTargets(this);
             machines = new MachineManager(this);
@@ -62,7 +60,6 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
         if (machines != null) machines.close();
         if (machineSettings != null) machineSettings.close();
         if (casino != null) casino.close();
-        if (ui != null) ui.close();
     }
 
     void testMachine(Player player, String[] args) {
@@ -71,7 +68,6 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
 
     @EventHandler
     public void quit(PlayerQuitEvent event) {
-        if (ui != null) ui.forget(event.getPlayer().getUniqueId());
         if (casino != null) casino.forget(event.getPlayer().getUniqueId());
     }
 
@@ -151,15 +147,13 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
         if (sender instanceof Player player) {
             if (!allowed(player)) {
                 player.sendMessage("§c请先登录，或联系管理员确认权限。");
-            } else if (!mines) {
-                ui.forget(player.getUniqueId());
-                casino.open(player);
+            } else if (mines) {
+                player.sendMessage("§eMines 请使用实体机器游玩。");
             } else {
-                casino.forget(player.getUniqueId());
-                ui.open(player);
+                casino.open(player);
             }
         } else {
-            sender.sendMessage("玩家使用 /casino 或 /casino mines；核对命令见 README。");
+            sender.sendMessage("玩家使用 /casino；核对命令见 README。");
         }
         return true;
     }

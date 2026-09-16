@@ -119,8 +119,8 @@ class MinesServiceTest {
         assertThrows(
                 IllegalStateException.class,
                 () -> s.reveal(UUID.randomUUID(), r.id, r.revision, 4));
-        assertThrows(IllegalArgumentException.class, () -> MinesUi.parse("NaN", 100));
-        assertThrows(IllegalArgumentException.class, () -> MinesUi.parse("-1", 100));
-        assertThrows(IllegalArgumentException.class, () -> MinesUi.parse("101", 100));
+        assertThrows(IllegalArgumentException.class, () -> CasinoUi.parse("NaN", 100));
+        assertThrows(IllegalArgumentException.class, () -> CasinoUi.parse("-1", 100));
+        assertThrows(IllegalArgumentException.class, () -> CasinoUi.parse("101", 100));
     }
 }

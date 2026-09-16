@@ -11,7 +11,9 @@ final class CasinoGraphics {
     }
 
     static String row(String value) {
-        return MinesUi.finishRow(value);
+        // Preserve the final bitmap advance so text measurement does not wrap the row.
+        int last = value.lastIndexOf('\uEFFF');
+        return last < 0 ? value : value.substring(0, last) + value.substring(last + 1);
     }
 
     static String button(CasinoRound.Game game) {

@@ -173,7 +173,7 @@ public final class CasinoUi {
                             return;
                         }
                         try {
-                            setStake.accept(MinesUi.parse(v.get("stake"), 100) * 100L);
+                            setStake.accept(parse(v.get("stake"), 100) * 100L);
                             p.sendMessage("§a练习下注金额已保存。");
                         } catch (IllegalArgumentException ex) {
                             p.sendMessage("§c请输入 1～100 的整数。");
@@ -272,17 +272,19 @@ public final class CasinoUi {
         }
     }
 
+    static int parse(String value, int max) {
+        if (value == null || !value.matches("[0-9]{1,3}")) {
+            throw new IllegalArgumentException("请输入范围内的整数");
+        }
+        int number = Integer.parseInt(value);
+        if (number < 1 || number > max) throw new IllegalArgumentException("输入超出范围");
+        return number;
+    }
+
     void open(Player p) {
         var r = games.get(p.getUniqueId());
         String status = r != null && !r.finished() ? "\n当前对局：" + name(r.game) + " · 可继续" : "";
         var page = new Page(p, "金币游乐场", "&6手动游戏 · 1～100 虚拟金币&f\n默认练习，不扣款、不发放余额。每局由你确认开始。" + status);
-        page.button(
-                "mines",
-                "Mines 扫雷",
-                v -> {
-                    forget(p.getUniqueId());
-                    p.performCommand("casino mines");
-                });
         if (plugin.machineAllowed(p)) page.button("machines", "创建测试机", v -> machines(p));
         if (r != null && !r.finished()) page.button("resume", "继续当前对局", v -> game(p, r.game));
         page.button(
@@ -443,9 +445,9 @@ public final class CasinoUi {
                 "save",
                 "保存设置",
                 v -> {
-                    int stake = MinesUi.parse(v.get("stake"), 100), parameter = d.parameter;
+                    int stake = parse(v.get("stake"), 100), parameter = d.parameter;
                     if (game == CasinoRound.Game.DICE) {
-                        parameter = MinesUi.parse(v.get("parameter"), 95);
+                        parameter = parse(v.get("parameter"), 95);
                         if (parameter < 5) throw new IllegalArgumentException("胜率最低5%");
                     }
                     if (game == CasinoRound.Game.LIMBO || game == CasinoRound.Game.CRASH)
