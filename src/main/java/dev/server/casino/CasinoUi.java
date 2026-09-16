@@ -281,7 +281,7 @@ public final class CasinoUi {
                 "Mines 扫雷",
                 v -> {
                     forget(p.getUniqueId());
-                    p.performCommand("mines");
+                    p.performCommand("casino mines");
                 });
         if (plugin.machineAllowed(p)) page.button("machines", "创建测试机", v -> machines(p));
         if (r != null && !r.finished()) page.button("resume", "继续当前对局", v -> game(p, r.game));

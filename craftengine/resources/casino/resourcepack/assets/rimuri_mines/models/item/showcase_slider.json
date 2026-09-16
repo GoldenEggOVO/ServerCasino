@@ -1,1 +1,0 @@
-{"ambientocclusion":false,"textures":{"atlas":"casino:item/showcase_slider","particle":"casino:item/showcase_slider"},"elements":[{"from":[7.48,7.48,7.92],"to":[8.52,8.52,8.08],"faces":{"north":{"texture":"#atlas","uv":[0,0,16,16]}}},{"from":[7.48,7.48,7.92],"to":[8.52,8.52,8.08],"faces":{"south":{"texture":"#atlas","uv":[0,0,16,16]}}}]}

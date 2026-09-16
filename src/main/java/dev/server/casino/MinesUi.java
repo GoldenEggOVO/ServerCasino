@@ -28,16 +28,9 @@ final class MinesUi {
         template = plugin.getDataFolder().toPath().resolve("menu.yml");
         Files.createDirectories(template.getParent());
         if (!Files.exists(template)) {
-            Path legacy =
-                    plugin.getDataFolder()
-                            .toPath()
-                            .resolveSibling("KaMenu")
-                            .resolve("menus/mines/main.yml");
-            if (Files.isRegularFile(legacy)) Files.copy(legacy, template);
-            else
-                try (var in = plugin.getResource("menu.yml")) {
-                    Files.copy(Objects.requireNonNull(in), template);
-                }
+            try (var in = plugin.getResource("menu.yml")) {
+                Files.copy(Objects.requireNonNull(in), template);
+            }
         }
     }
 
@@ -63,7 +56,7 @@ final class MinesUi {
         if (a.length != 2) return;
         var s = sessions.get(p.getUniqueId());
         if (s == null
-                || !a[0].equals("servermines:" + s.token)
+                || !a[0].equals("casino:mines:" + s.token)
                 || s.expires < System.currentTimeMillis()
                 || !s.actions.containsKey(a[1])) return;
         sessions.remove(p.getUniqueId());
@@ -105,7 +98,7 @@ final class MinesUi {
         c.set("Bottom.type", "multi");
         if (!c.contains("Bottom.columns")) c.set("Bottom.columns", 1);
         c.set("Bottom.exit.text", "&c关闭菜单");
-        c.set("Bottom.exit.actions", List.of("servermines:" + token + " close"));
+        c.set("Bottom.exit.actions", List.of("casino:mines:" + token + " close"));
         actions.put(
                 "close",
                 v -> {
@@ -119,7 +112,7 @@ final class MinesUi {
 
     private static void button(YamlConfiguration c, String key, String text, UUID token) {
         c.set("Bottom.buttons." + key + ".text", text);
-        c.set("Bottom.buttons." + key + ".actions", List.of("servermines:" + token + " " + key));
+        c.set("Bottom.buttons." + key + ".actions", List.of("casino:mines:" + token + " " + key));
     }
 
     private void simple(
@@ -161,7 +154,7 @@ final class MinesUi {
             c.set("Inputs." + key + ".max_length", 3);
         }
         button(c, "save", "&a保存", t);
-        c.set("Bottom.buttons.save.actions", List.of("servermines:" + t + " save"));
+        c.set("Bottom.buttons.save.actions", List.of("casino:mines:" + t + " save"));
         actions.put(
                 "save",
                 v -> {
@@ -345,7 +338,7 @@ final class MinesUi {
             if (!active || (r.revealed & (1 << cell)) != 0) actions.remove("cell" + cell);
         c.set("Events.Click", null);
         for (String key : actions.keySet())
-            c.set("Events.Click." + key, List.of("servermines:" + token + " " + key));
+            c.set("Events.Click." + key, List.of("casino:mines:" + token + " " + key));
         actions.put(
                 "back",
                 v -> {

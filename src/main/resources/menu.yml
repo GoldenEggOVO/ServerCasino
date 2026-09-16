@@ -1,4 +1,4 @@
-# First install writes ServerCasino/menu.yml; existing KaMenu Mines edits are copied once.
+# First install writes the bundled menu to ServerCasino/menu.yml.
 Title: '&fMINES · 寻宝'
 Body:
   status:

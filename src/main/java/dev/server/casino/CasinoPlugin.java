@@ -32,7 +32,6 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         try {
-            LegacyDataMigration.migrate(getDataFolder().toPath());
             saveDefaultConfig();
             EconomyProvider vault = VaultEconomyProvider.discover();
             if (vault != null) {
@@ -118,13 +117,8 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
             if (sender instanceof Player player) testMachine(player, args);
             return true;
         }
-        if (command.getName().equalsIgnoreCase("plinko-demo")) {
-            if (sender instanceof Player player) {
-                String action = args.length == 0 ? "help" : args[0];
-                machines.command(player, new String[] {action, "plinko"});
-            }
-            return true;
-        }
+        boolean mines = args.length > 0 && args[0].equalsIgnoreCase("mines");
+        if (mines) args = java.util.Arrays.copyOfRange(args, 1, args.length);
         if (args.length > 0 && args[0].equals("resolve")) {
             if (!(sender instanceof ConsoleCommandSender)) {
                 sender.sendMessage("仅控制台可核对结算。");
@@ -133,9 +127,9 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
             try {
                 if (args.length != 4 || !Set.of("applied", "not-applied").contains(args[3])) {
                     throw new IllegalArgumentException(
-                            command.getName() + " resolve <玩家UUID> <对局UUID> <applied|not-applied>");
+                            (mines ? "casino mines" : "casino") + " resolve <玩家UUID> <对局UUID> <applied|not-applied>");
                 }
-                if (command.getName().equalsIgnoreCase("casino")) {
+                if (!mines) {
                     casino.resolve(
                             UUID.fromString(args[1]),
                             UUID.fromString(args[2]),
@@ -157,7 +151,7 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
         if (sender instanceof Player player) {
             if (!allowed(player)) {
                 player.sendMessage("§c请先登录，或联系管理员确认权限。");
-            } else if (command.getName().equalsIgnoreCase("casino")) {
+            } else if (!mines) {
                 ui.forget(player.getUniqueId());
                 casino.open(player);
             } else {
@@ -165,7 +159,7 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
                 ui.open(player);
             }
         } else {
-            sender.sendMessage("玩家使用 /casino 或 /mines；核对命令见 README。");
+            sender.sendMessage("玩家使用 /casino 或 /casino mines；核对命令见 README。");
         }
         return true;
     }

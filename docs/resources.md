@@ -4,7 +4,7 @@
 
 ## 确定性发布
 
-在任意当前目录运行项目内 `tools/package-resources.py`，路径始终相对于项目根。无需字体、Pillow 或旁边项目；文件排序、时间戳、权限和无压缩 ZIP 编码固定。重复运行产生相同字节。旧命名空间只保留 JSON 和 CE 注册别名，复用 casino PNG，避免两份贴图漂移。
+在任意当前目录运行项目内 `tools/package-resources.py`，路径始终相对于项目根。无需字体、Pillow 或旁边项目；文件排序、时间戳、权限和无压缩 ZIP 编码固定。重复运行产生相同字节。发布包仅包含 casino 命名空间，不包含旧资源别名。
 
 源码交付使用 `python tools/package-source.py`，输出 `target/server-casino-source.zip`。仅包含源码、资源、文档、生成工具和固定测试基线；排除 target、reports、artwork 原始绘图、本地字体、字体配置及 Python 缓存。打包前先完成代码更改和测试，再重新运行以纳入最终文件。
 
@@ -16,4 +16,4 @@
 
 历史批准纹理使用过 Arial Bold、Segoe UI Symbol、Microsoft YaHei；其字体程序不随项目分发。使用其他字体会改变字形及像素，不能宣称与历史 PNG 一致。对重绘结果要求可重复时，固定 Python/Pillow 版本和字体文件 SHA-256，并记录工具、输入和顺序。通常直接打包现有批准 PNG 即可精确复现发布包。
 
-重绘后运行 `python tools/sync-legacy-aliases.py` 同步旧 JSON 与 CE 注册别名，再运行资产测试并实际检查客户端效果。只有有意批准新的资源基线时才能更新基线摘要；不能为了测试通过而重写基线。
+重绘后运行资产测试并实际检查客户端效果。只有有意批准新的资源基线时才能更新基线摘要；不能为了测试通过而重写基线。

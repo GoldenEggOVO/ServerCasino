@@ -73,14 +73,14 @@ class MinesLayoutTest {
         assertFalse(config.contains("Bottom.buttons.legacy"));
         assertEquals(6, config.getConfigurationSection("Bottom.buttons").getKeys(false).size());
         assertEquals(
-                "servermines:" + token + " start",
+                "casino:mines:" + token + " start",
                 config.getStringList("Bottom.buttons.start.actions").getFirst());
         assertTrue(config.getStringList("Bottom.buttons.cash.actions").isEmpty());
         MinesUi.mainButtons(config, token, true, true, true);
         for (String key : new String[] {"settings", "start", "mode"})
             assertTrue(config.getStringList("Bottom.buttons." + key + ".actions").isEmpty());
         assertEquals(
-                "servermines:" + token + " cash",
+                "casino:mines:" + token + " cash",
                 config.getStringList("Bottom.buttons.cash.actions").getFirst());
         for (String key : config.getConfigurationSection("Bottom.buttons").getKeys(false)) {
             assertEquals(96, config.getInt("Bottom.buttons." + key + ".width"));

@@ -1,5 +1,5 @@
 name: ServerCasino
-version: 0.4.0-preview
+version: 0.4.1-preview
 main: dev.server.casino.CasinoPlugin
 api-version: '26.2'
 softdepend: [Vault, AuthMe, CraftEngine, ServerGames]
@@ -7,19 +7,11 @@ commands:
   casino-demo:
     description: 创建或清除免费实体游乐机
     usage: /casino-demo create <game> [skin-id] 或 remove [game] 或 reload-models
-  plinko-demo:
-    description: 创建或清除免费弹珠机视觉原型
   casino:
     description: 金币游乐场
     usage: /casino
-  mines:
-    description: 打开 Mines
 permissions:
   casino.machine:
     default: op
   casino.use:
-    default: true
-  servermines.machine:
-    default: op
-  servermines.use:
     default: true

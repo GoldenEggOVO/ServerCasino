@@ -28,7 +28,7 @@ class ResourcePackageTest(unittest.TestCase):
         namespace, path = value.split(':', 1)
         if namespace == 'minecraft':
             return
-        self.assertIn(namespace, ('casino', 'rimuri_mines'))
+        self.assertEqual(namespace, 'casino')
         self.assertTrue((ASSETS / namespace / folder / (path + extension)).is_file(), value)
 
     def test_all_model_font_item_references_resolve(self):
@@ -48,11 +48,9 @@ class ResourcePackageTest(unittest.TestCase):
             for reference in re.findall(r'^\s+path: (\S+)', path.read_text(encoding='utf-8'), re.M):
                 self.assert_reference(reference, 'models', '.json')
 
-    def test_all_legacy_json_ids_are_compatible(self):
-        for path in (ASSETS / 'casino').rglob('*.json'):
-            legacy = ASSETS / 'rimuri_mines' / path.relative_to(ASSETS / 'casino')
-            self.assertEqual(json.loads(path.read_text(encoding='utf-8')),
-                             json.loads(legacy.read_text(encoding='utf-8')))
+    def test_only_current_namespace_is_packaged(self):
+        self.assertEqual({'casino'}, {p.name for p in ASSETS.iterdir() if p.is_dir()})
+        self.assertFalse(list((PACK / 'configuration').glob('legacy-*.yml')))
 
     def test_packaging_is_reproducible(self):
         spec = importlib.util.spec_from_file_location('packager', ROOT / 'tools/package-resources.py')

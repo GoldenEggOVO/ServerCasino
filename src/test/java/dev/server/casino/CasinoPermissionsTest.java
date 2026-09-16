@@ -29,25 +29,11 @@ class CasinoPermissionsTest {
     }
 
     @Test
-    void explicitOldDenyCannotBeBypassedByNewDefaultOrGrant() {
-        assertFalse(CasinoPermissions.allowed(player(Map.of("servermines.use", false)), "use"));
-        assertFalse(
-                CasinoPermissions.allowed(
-                        player(Map.of("servermines.use", false, "casino.use", true)), "use"));
-        assertFalse(
-                CasinoPermissions.allowed(
-                        player(Map.of("servermines.machine", false, "casino.machine", true)),
-                        "machine"));
-    }
-
-    @Test
-    void explicitNewDenyWinsAndOldGrantsStillWork() {
-        assertFalse(
-                CasinoPermissions.allowed(
-                        player(Map.of("casino.machine", false, "servermines.machine", true)),
-                        "machine"));
-        assertTrue(
-                CasinoPermissions.allowed(player(Map.of("servermines.machine", true)), "machine"));
+    void onlyCurrentPermissionsControlAccess() {
+        assertTrue(CasinoPermissions.allowed(player(Map.of("servermines.use", false)), "use"));
+        assertFalse(CasinoPermissions.allowed(player(Map.of("servermines.machine", true)), "machine"));
+        assertTrue(CasinoPermissions.allowed(player(Map.of("casino.machine", true)), "machine"));
+        assertFalse(CasinoPermissions.allowed(player(Map.of("casino.use", false)), "use"));
         assertTrue(CasinoPermissions.allowed(player(Map.of()), "use"));
         assertFalse(CasinoPermissions.allowed(player(Map.of()), "machine"));
     }
