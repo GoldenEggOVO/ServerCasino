@@ -56,7 +56,24 @@ public final class MachineManager implements Listener {
                 player.sendMessage("§a模型配置已加载，新创建的机器使用新配置。");
                 return;
             }
+            if (args.length >= 1 && args[0].equalsIgnoreCase("bet")) {
+                if (args.length != 3 || !args[2].matches("[0-9]{1,3}")) {
+                    throw new IllegalArgumentException("用法：/casino bet <game> <1-100>");
+                }
+                String game = args[1].toLowerCase(Locale.ROOT);
+                var machine = machines.get(new Key(player.getUniqueId(), group(game)));
+                if (machine == null || !machine.game().equals(game)) {
+                    throw new IllegalArgumentException("你没有这种类型的机器。");
+                }
+                if (!canManage(player, machine)) {
+                    throw new IllegalArgumentException("请靠近自己的机器后设置金额。");
+                }
+                machine.setStake(Long.parseLong(args[2]) * 100);
+                player.sendMessage("§a练习下注已设为 " + args[2] + "，下一局生效；不扣款、不发放余额。");
+                return;
+            }
             if (args.length >= 1 && args[0].equalsIgnoreCase("remove")) {
+                if (args.length > 2) throw new IllegalArgumentException("用法：/casino remove [game]");
                 for (var machine : List.copyOf(machines.values())) {
                     if (machine.owner().equals(player.getUniqueId())
                             && (args.length == 1 || machine.game().equalsIgnoreCase(args[1])))
@@ -67,7 +84,7 @@ public final class MachineManager implements Listener {
             }
             if (args.length < 2 || args.length > 3 || !args[0].equalsIgnoreCase("create")) {
                 player.sendMessage(
-                        "/casino-demo create <game> [skin-id] | remove [game] | reload-models");
+                        "/casino create <game> [skin-id] | bet <game> <1-100> | remove [game] | reload-models");
                 return;
             }
             String game = args[1].toLowerCase(Locale.ROOT);

@@ -13,9 +13,16 @@
 ## 命令与配置
 
 - `/casino`：游戏菜单与创建测试机入口。Mines 仅通过实体机器游玩。
-- `/casino-demo create <game> [skin-id]`：创建免费机器；`remove` 清除机器。
-- `/casino-demo reload-models`：校验并重载机器定义。
+- `/casino create <game> [skin-id]`：创建免费机器。
+- `/casino bet <game> <amount>`：修改自己的对应机器的练习下注，金额为 1～100 的整数；需要靠近机器，并等待当前对局或动画结束。
+- `/casino remove [game]`：删除自己对应类型的机器；不填游戏类型则删除自己的全部机器。
+- `/casino reload-models`：校验并重载机器定义。
+- `/casino-demo` 同样支持以上机器管理子命令。
 - `casino.use`、`casino.machine`：使用菜单与管理机器的权限。
+
+`config.yml` 中 `menu-enabled: true` 默认开启原生菜单。设置为 `false` 并重启服务器后，`/casino` 和 Shift＋右键只显示指令帮助，不打开 Dialog。机器创建、下注设置、删除、模型重载与实体按钮仍可使用；菜单游戏界面随菜单关闭。该开关不改变 `money-enabled` 或经济核对功能。
+
+例如 `/casino create mines`、`/casino bet mines 25`、`/casino remove mines`。实体机器始终为免费练习。
 
 模型配置、动作与坐标见 [自定义模型](docs/custom-models.md)。版本要求见 [安装说明](docs/installation.md)，资源生成与复现见 [资源工具](docs/resources.md)。
 

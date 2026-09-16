@@ -417,16 +417,23 @@ public abstract class PracticeMachine<R extends PracticeRound> {
         }
     }
 
+    final void setStake(long amount) {
+        if (amount < 100 || amount > 10000 || amount % 100 != 0) {
+            throw new IllegalArgumentException("下注金额必须是 1～100 的整数。");
+        }
+        if (!canEditStake()) throw new IllegalArgumentException("请等当前对局或动画结束后修改金额。");
+        if (round instanceof DemoRound demo) demo.setConfiguredStake(amount);
+        else round.setStake(amount);
+        refresh();
+    }
+
     public final void settings(Player player) {
         confirmInput();
         plugin.casino.machineSettings(
                 player,
                 game(),
                 () -> round instanceof DemoRound demo ? demo.configuredStake() : round.stake(),
-                amount -> {
-                    if (round instanceof DemoRound demo) demo.setConfiguredStake(amount);
-                    else round.setStake(amount);
-                },
+                this::setStake,
                 this::canEditStake,
                 () -> manager.contains(this) && manager.canManage(player, this),
                 () -> manager.remove(this));

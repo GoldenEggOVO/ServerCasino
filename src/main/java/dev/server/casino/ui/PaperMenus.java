@@ -57,13 +57,18 @@ public final class PaperMenus {
             Player player,
             YamlConfiguration config,
             BiConsumer<String, Map<String, String>> handler) {
+        if (!plugin.getConfig().getBoolean("menu-enabled", true)) {
+            player.sendMessage("§e菜单已关闭。使用 /casino create <game>、/casino bet <game> <1-100>、/casino remove <game>。");
+            return;
+        }
         BiConsumer<String, Map<String, String>> dispatch =
                 (action, values) ->
                         Bukkit.getScheduler()
                                 .runTask(
                                         plugin,
                                         () -> {
-                                            if (plugin.isEnabled() && player.isOnline())
+                                            if (plugin.isEnabled() && player.isOnline()
+                                                    && plugin.getConfig().getBoolean("menu-enabled", true))
                                                 handler.accept(action, values);
                                         });
         List<DialogBody> body = new ArrayList<>();

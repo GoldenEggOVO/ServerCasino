@@ -82,6 +82,10 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
         return allowed(player) && CasinoPermissions.allowed(player, "machine");
     }
 
+    public boolean menusEnabled() {
+        return getConfig().getBoolean("menu-enabled", true);
+    }
+
     boolean moneyAvailable() {
         return getConfig().getBoolean("money-enabled", false) && economy.available();
     }
@@ -109,8 +113,11 @@ public final class CasinoPlugin extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("casino-demo")) {
+        if (command.getName().equalsIgnoreCase("casino-demo")
+                || args.length > 0 && Set.of("create", "remove", "bet", "reload-models")
+                        .contains(args[0].toLowerCase(java.util.Locale.ROOT))) {
             if (sender instanceof Player player) testMachine(player, args);
+            else sender.sendMessage("机器管理指令需要玩家在游戏内执行。");
             return true;
         }
         boolean mines = args.length > 0 && args[0].equalsIgnoreCase("mines");

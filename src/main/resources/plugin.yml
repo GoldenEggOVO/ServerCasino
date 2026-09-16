@@ -1,5 +1,5 @@
 name: ServerCasino
-version: 0.4.2-preview
+version: 0.4.3-preview
 main: dev.server.casino.CasinoPlugin
 api-version: '26.2'
 softdepend: [Vault, AuthMe, CraftEngine, ServerGames]
@@ -9,7 +9,7 @@ commands:
     usage: /casino-demo create <game> [skin-id] 或 remove [game] 或 reload-models
   casino:
     description: 金币游乐场
-    usage: /casino
+    usage: /casino [create <game> [skin-id] | bet <game> <1-100> | remove [game] | reload-models]
 permissions:
   casino.machine:
     default: op

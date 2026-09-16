@@ -106,6 +106,11 @@ public final class CasinoUi {
     }
 
     private void handle(Player p, String action, Map<String, String> values) {
+        if (!plugin.menusEnabled()) {
+            forget(p.getUniqueId());
+            p.closeDialog();
+            return;
+        }
         String[] parts = action.split(" ");
         if (parts.length != 2) return;
         var s = sessions.get(p.getUniqueId());
@@ -250,6 +255,11 @@ public final class CasinoUi {
         }
 
         void show() {
+            if (!plugin.menusEnabled()) {
+                forget(player.getUniqueId());
+                player.sendMessage("§e菜单已关闭。使用 /casino create <game>、/casino bet <game> <1-100>、/casino remove <game>。");
+                return;
+            }
             if (!plugin.allowed(player)) return;
             config.set("Settings.can_escape", true);
             config.set("Settings.after_action", "NONE");

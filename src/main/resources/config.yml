@@ -1,2 +1,4 @@
 # New installations start with practice only. Existing configuration is retained.
 money-enabled: false
+# Optional native Paper dialogs. Commands and physical buttons work when disabled.
+menu-enabled: true
