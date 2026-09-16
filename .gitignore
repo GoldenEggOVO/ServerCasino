@@ -1,0 +1,15 @@
+/target/
+/artwork/
+/reports/
+/.idea/
+/.vscode/
+*.iml
+*.log
+*.jar
+*.zip
+*.class
+__pycache__/
+*.pyc
+/tools/fonts.local.json
+.env
+.env.*

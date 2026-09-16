@@ -1,0 +1,1 @@
+{"ambientocclusion":false,"textures":{"atlas":"casino:item/showcase_wheel_money","particle":"casino:item/showcase_wheel_money"},"elements":[{"from":[4.4,4.4,7.948],"to":[11.6,11.6,8.052],"faces":{"north":{"texture":"#atlas","uv":[0,0,16,16]}}},{"from":[4.4,4.4,7.948],"to":[11.6,11.6,8.052],"faces":{"south":{"texture":"#atlas","uv":[0,0,16,16]}}}]}

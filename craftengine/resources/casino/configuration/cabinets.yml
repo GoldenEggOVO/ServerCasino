@@ -1,0 +1,99 @@
+items:
+  casino:cabinet_plinko:
+    material: paper
+    data:
+      item_name: <!i>PLINKO
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_plinko
+  casino:cabinet_mines:
+    material: paper
+    data:
+      item_name: <!i>MINE SWEEPER
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_mines
+  casino:cabinet_blackjack:
+    material: paper
+    data:
+      item_name: <!i>BLACKJACK
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_blackjack
+  casino:cabinet_crash:
+    material: paper
+    data:
+      item_name: <!i>CRASH
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_crash
+  casino:cabinet_rocket:
+    material: paper
+    data:
+      item_name: <!i>Rocket
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_rocket
+  casino:cabinet_button_play:
+    material: paper
+    data:
+      item_name: <!i>PLAY
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_play
+  casino:cabinet_button_hit:
+    material: paper
+    data:
+      item_name: <!i>HIT
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_hit
+  casino:cabinet_button_stand:
+    material: paper
+    data:
+      item_name: <!i>STAND
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_stand
+  casino:cabinet_button_double:
+    material: paper
+    data:
+      item_name: <!i>DOUBLE
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_double
+  casino:cabinet_button_cashout:
+    material: paper
+    data:
+      item_name: <!i>CASH OUT
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_cashout
+  casino:cabinet_control_panel:
+    material: paper
+    data:
+      item_name: <!i>Rocket
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_control_panel
+  casino:cabinet_blackjack_screen:
+    material: paper
+    data:
+      item_name: <!i>BLACKJACK SCREEN
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_blackjack_screen
+  casino:cabinet_button_minus:
+    material: paper
+    data:
+      item_name: <!i>-
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_minus
+  casino:cabinet_button_plus:
+    material: paper
+    data:
+      item_name: <!i>+
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_plus

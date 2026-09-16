@@ -1,0 +1,99 @@
+items:
+  rimuri_mines:cabinet_plinko:
+    material: paper
+    data:
+      item_name: <!i>PLINKO
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_plinko
+  rimuri_mines:cabinet_mines:
+    material: paper
+    data:
+      item_name: <!i>MINE SWEEPER
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_mines
+  rimuri_mines:cabinet_blackjack:
+    material: paper
+    data:
+      item_name: <!i>BLACKJACK
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_blackjack
+  rimuri_mines:cabinet_crash:
+    material: paper
+    data:
+      item_name: <!i>CRASH
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_crash
+  rimuri_mines:cabinet_rocket:
+    material: paper
+    data:
+      item_name: <!i>Rocket
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_rocket
+  rimuri_mines:cabinet_button_play:
+    material: paper
+    data:
+      item_name: <!i>PLAY
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_play
+  rimuri_mines:cabinet_button_hit:
+    material: paper
+    data:
+      item_name: <!i>HIT
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_hit
+  rimuri_mines:cabinet_button_stand:
+    material: paper
+    data:
+      item_name: <!i>STAND
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_stand
+  rimuri_mines:cabinet_button_double:
+    material: paper
+    data:
+      item_name: <!i>DOUBLE
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_double
+  rimuri_mines:cabinet_button_cashout:
+    material: paper
+    data:
+      item_name: <!i>CASH OUT
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_cashout
+  rimuri_mines:cabinet_control_panel:
+    material: paper
+    data:
+      item_name: <!i>Rocket
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_control_panel
+  rimuri_mines:cabinet_blackjack_screen:
+    material: paper
+    data:
+      item_name: <!i>BLACKJACK SCREEN
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_blackjack_screen
+  rimuri_mines:cabinet_button_minus:
+    material: paper
+    data:
+      item_name: <!i>-
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_minus
+  rimuri_mines:cabinet_button_plus:
+    material: paper
+    data:
+      item_name: <!i>+
+    model:
+      type: minecraft:model
+      path: casino:item/cabinet_button_plus

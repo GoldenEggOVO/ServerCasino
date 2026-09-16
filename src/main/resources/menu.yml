@@ -1,0 +1,15 @@
+# First install writes ServerCasino/menu.yml; existing KaMenu Mines edits are copied once.
+Title: '&fMINES · 寻宝'
+Body:
+  status:
+    type: message
+    width: 296
+    text: '@status@'
+  board:
+    type: message
+    width: 192
+    text: '@board@'
+  note:
+    type: message
+    width: 296
+    text: '&7关闭保留对局 · /mines 继续 · 返还率 98%'

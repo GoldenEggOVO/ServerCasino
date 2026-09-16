@@ -1,0 +1,58 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "casino:ui/icon_gem.png",
+      "height": 24,
+      "ascent": 20,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/icon_bomb.png",
+      "height": 24,
+      "ascent": 20,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/icon_dice.png",
+      "height": 24,
+      "ascent": 20,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/icon_multiplier.png",
+      "height": 24,
+      "ascent": 20,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/icon_cards.png",
+      "height": 24,
+      "ascent": 20,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/icon_plinko.png",
+      "height": 24,
+      "ascent": 20,
+      "chars": [
+        ""
+      ]
+    }
+  ]
+}

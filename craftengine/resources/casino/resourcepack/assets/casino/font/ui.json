@@ -1,0 +1,388 @@
+{
+  "providers": [
+    {
+      "type": "space",
+      "advances": {
+        "": -1
+      }
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/hidden_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/hidden_1.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/hidden_2.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/hidden_3.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/gem_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/gem_1.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/gem_2.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/gem_3.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/mine_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/mine_1.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/mine_2.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/mine_3.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/settings_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/settings_1.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/settings_2.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/settings_3.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/start_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/start_1.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/start_2.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/start_3.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/cash_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/cash_1.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/cash_2.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/cash_3.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/practice_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/practice_1.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/practice_2.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/practice_3.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/real_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/real_1.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/real_2.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/real_3.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/rules_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/rules_1.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/rules_2.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/rules_3.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/disabled_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/disabled_1.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/disabled_2.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/disabled_3.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/blank_left_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "casino:ui/blank_right_0.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        ""
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+schema-version: 1
+id: emerald-blackjack
+game: blackjack
+models:
+  cabinet_blackjack: material:EMERALD_BLOCK
+anchors:
+  body:
+    position: [0, 0, 0]
+    rotation: [0, 0, 0]
+    scale: 1
+  playfield:
+    position: [0, 0, 0]
+    rotation: [0, 0, 0]
+    scale: 1
+parts:
+  - model: material:EMERALD_BLOCK
+    position: [0, 2.5, 0]
+    rotation: [0, 0, 0]
+    scale: 0.2

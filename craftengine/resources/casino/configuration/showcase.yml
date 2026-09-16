@@ -1,0 +1,547 @@
+items:
+  casino:showcase_slots:
+    material: paper
+    data:
+      item_name: <!i>SLOTS
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_slots
+  casino:showcase_duck_race:
+    material: paper
+    data:
+      item_name: <!i>DUCK RACE
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_duck_race
+  casino:showcase_wheel_of_fortune:
+    material: paper
+    data:
+      item_name: <!i>WHEEL OF FORTUNE
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_wheel_of_fortune
+  casino:showcase_money_wheel:
+    material: paper
+    data:
+      item_name: <!i>MONEY WHEEL
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_money_wheel
+  casino:showcase_penguin_cross:
+    material: paper
+    data:
+      item_name: <!i>PENGUIN CROSS
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_penguin_cross
+  casino:showcase_keno:
+    material: paper
+    data:
+      item_name: <!i>KENO
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_keno
+  casino:showcase_hilo:
+    material: paper
+    data:
+      item_name: <!i>HILO
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_hilo
+  casino:showcase_dragon_tower:
+    material: paper
+    data:
+      item_name: <!i>DRAGON TOWER
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_dragon_tower
+  casino:showcase_hilo_panel:
+    material: paper
+    data:
+      item_name: <!i>HILO PANEL
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_hilo_panel
+  casino:showcase_button_play:
+    material: paper
+    data:
+      item_name: <!i>BUTTON PLAY
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_play
+  casino:showcase_button_cash:
+    material: paper
+    data:
+      item_name: <!i>BUTTON CASH
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_cash
+  casino:showcase_button_flip:
+    material: paper
+    data:
+      item_name: <!i>BUTTON FLIP
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_flip
+  casino:showcase_button_step:
+    material: paper
+    data:
+      item_name: <!i>BUTTON STEP
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_step
+  casino:showcase_button_select:
+    material: paper
+    data:
+      item_name: <!i>BUTTON SELECT
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_select
+  casino:showcase_button_spin:
+    material: paper
+    data:
+      item_name: <!i>BUTTON SPIN
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_spin
+  casino:showcase_button_reset:
+    material: paper
+    data:
+      item_name: <!i>BUTTON RESET
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_reset
+  casino:showcase_button_under:
+    material: paper
+    data:
+      item_name: <!i>BUTTON UNDER
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_under
+  casino:showcase_button_over:
+    material: paper
+    data:
+      item_name: <!i>BUTTON OVER
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_over
+  casino:showcase_button_duck_1:
+    material: paper
+    data:
+      item_name: <!i>BUTTON DUCK 1
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_duck_1
+  casino:showcase_button_duck_2:
+    material: paper
+    data:
+      item_name: <!i>BUTTON DUCK 2
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_duck_2
+  casino:showcase_button_duck_3:
+    material: paper
+    data:
+      item_name: <!i>BUTTON DUCK 3
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_duck_3
+  casino:showcase_button_duck_4:
+    material: paper
+    data:
+      item_name: <!i>BUTTON DUCK 4
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_duck_4
+  casino:showcase_button_money_0:
+    material: paper
+    data:
+      item_name: <!i>BUTTON MONEY 0
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_money_0
+  casino:showcase_button_money_1:
+    material: paper
+    data:
+      item_name: <!i>BUTTON MONEY 1
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_money_1
+  casino:showcase_button_money_2:
+    material: paper
+    data:
+      item_name: <!i>BUTTON MONEY 2
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_money_2
+  casino:showcase_button_money_3:
+    material: paper
+    data:
+      item_name: <!i>BUTTON MONEY 3
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_money_3
+  casino:showcase_button_round_spin:
+    material: paper
+    data:
+      item_name: <!i>BUTTON ROUND SPIN
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_button_round_spin
+  casino:showcase_pointer:
+    material: paper
+    data:
+      item_name: <!i>POINTER
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_pointer
+  casino:showcase_tile:
+    material: paper
+    data:
+      item_name: <!i>TILE
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_tile
+  casino:showcase_tile_selected:
+    material: paper
+    data:
+      item_name: <!i>TILE SELECTED
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_tile_selected
+  casino:showcase_slider:
+    material: paper
+    data:
+      item_name: <!i>SLIDER
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_slider
+  casino:showcase_wheel_fortune:
+    material: paper
+    data:
+      item_name: <!i>WHEEL FORTUNE
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_wheel_fortune
+  casino:showcase_wheel_money:
+    material: paper
+    data:
+      item_name: <!i>WHEEL MONEY
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_wheel_money
+  casino:showcase_duck_1:
+    material: paper
+    data:
+      item_name: <!i>DUCK 1
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_duck_1
+  casino:showcase_duck_2:
+    material: paper
+    data:
+      item_name: <!i>DUCK 2
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_duck_2
+  casino:showcase_duck_3:
+    material: paper
+    data:
+      item_name: <!i>DUCK 3
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_duck_3
+  casino:showcase_duck_4:
+    material: paper
+    data:
+      item_name: <!i>DUCK 4
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_duck_4
+  casino:showcase_penguin:
+    material: paper
+    data:
+      item_name: <!i>PENGUIN
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_penguin
+  casino:showcase_number_1:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 1
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_1
+  casino:showcase_number_2:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 2
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_2
+  casino:showcase_number_3:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 3
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_3
+  casino:showcase_number_4:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 4
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_4
+  casino:showcase_number_5:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 5
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_5
+  casino:showcase_number_6:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 6
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_6
+  casino:showcase_number_7:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 7
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_7
+  casino:showcase_number_8:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 8
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_8
+  casino:showcase_number_9:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 9
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_9
+  casino:showcase_number_10:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 10
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_10
+  casino:showcase_number_11:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 11
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_11
+  casino:showcase_number_12:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 12
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_12
+  casino:showcase_number_13:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 13
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_13
+  casino:showcase_number_14:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 14
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_14
+  casino:showcase_number_15:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 15
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_15
+  casino:showcase_number_16:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 16
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_16
+  casino:showcase_number_17:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 17
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_17
+  casino:showcase_number_18:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 18
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_18
+  casino:showcase_number_19:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 19
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_19
+  casino:showcase_number_20:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 20
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_20
+  casino:showcase_number_21:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 21
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_21
+  casino:showcase_number_22:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 22
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_22
+  casino:showcase_number_23:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 23
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_23
+  casino:showcase_number_24:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 24
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_24
+  casino:showcase_number_25:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 25
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_25
+  casino:showcase_number_26:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 26
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_26
+  casino:showcase_number_27:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 27
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_27
+  casino:showcase_number_28:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 28
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_28
+  casino:showcase_number_29:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 29
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_29
+  casino:showcase_number_30:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 30
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_30
+  casino:showcase_number_31:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 31
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_31
+  casino:showcase_number_32:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 32
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_32
+  casino:showcase_number_33:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 33
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_33
+  casino:showcase_number_34:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 34
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_34
+  casino:showcase_number_35:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 35
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_35
+  casino:showcase_number_36:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 36
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_36
+  casino:showcase_number_37:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 37
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_37
+  casino:showcase_number_38:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 38
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_38
+  casino:showcase_number_39:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 39
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_39
+  casino:showcase_number_40:
+    material: paper
+    data:
+      item_name: <!i>NUMBER 40
+    model:
+      type: minecraft:model
+      path: casino:item/showcase_number_40
